@@ -4,6 +4,7 @@ import { isPrismaClientKnownRequestError } from '@zenstackhq/runtime';
 import superjson from 'superjson';
 import { type Context } from '../context';
 import { createRouter as createCRUDRouter } from './generated/routers';
+import createAppRouter from './createAppRouter'
 
 function makePrismaError(error: Error | undefined) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -59,7 +60,8 @@ const errorWrappedProc = t.procedure.use(async ({ next }) => {
         return result;
     }
 });
-
-export const appRouter = createCRUDRouter(t.router, errorWrappedProc);
+export const addedRouter = createAppRouter(t.router, errorWrappedProc)
+export const crudRouter = createCRUDRouter(t.router, errorWrappedProc);
+export const appRouter = t.mergeRouters(crudRouter, addedRouter)
 
 export type AppRouter = typeof appRouter;
