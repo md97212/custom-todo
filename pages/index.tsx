@@ -29,11 +29,11 @@ const Home: NextPage<Props> = ({ spaces }) => {
                 },
             });
 
-            console.log(`List created: ${list}`);
+            console.log(`Space created: ${list}`);
             return list
         } catch (err: any) {
             toast.error(
-                `Failed to create list: ${err.info?.message || err.message}`
+                `Failed to create space: ${err.info?.message || err.message}`
             );
             return;
         }
