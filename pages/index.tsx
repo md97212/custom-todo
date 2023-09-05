@@ -8,6 +8,7 @@ import { getEnhancedPrisma } from 'server/db/enhanced';
 import {trpc} from '@lib/trpc'
 import {toast} from 'react-toastify'
 import {PlusIcon} from '@heroicons/react/24/outline'
+import {nanoid} from 'nanoid'
 
 type Props = {
     spaces: Space[];
@@ -20,17 +21,15 @@ const Home: NextPage<Props> = ({ spaces }) => {
     const _createSpace = async () => {
 
         try {
-            const list = await submitSpace({
+            const space = await submitSpace({
                 data: {
-                    title: 'title',
-                    private: false,
-                    space: {connect: {id: 'space!.id'}},
-                    owner: {connect: {id: 'user!.id'}},
+                    name: 'title',
+                    slug: nanoid(9),
                 },
             });
 
-            console.log(`Space created: ${list}`);
-            return list
+            console.log(`Space created: ${space}`);
+            return space
         } catch (err: any) {
             toast.error(
                 `Failed to create space: ${err.info?.message || err.message}`

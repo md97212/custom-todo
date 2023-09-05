@@ -6,6 +6,7 @@ export const submitSpaceHandler = async ({ctx, input}: {
     input: any;
 }) => {
     try {
+        console.log({submitSpace: input})
         const submittedSpace = await submitSpace({ ctx, input } )
 
         if (!submittedSpace) {

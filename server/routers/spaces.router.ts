@@ -6,7 +6,7 @@ import {
 } from './generated/routers'
 import {checkRead, checkMutate} from './generated/helper'
 import {submitSpaceHandler} from '../controller/space.controller'
-import {ListInputSchema} from '@zenstackhq/runtime/zod/input'
+import {SpaceInputSchema} from '@zenstackhq/runtime/zod/input'
 
 
 export default function createRouter<Config extends BaseConfig>(
@@ -15,7 +15,7 @@ export default function createRouter<Config extends BaseConfig>(
 ) {
     return router({
         submitSpace: procedure
-            .input(ListInputSchema.create)
+            .input(SpaceInputSchema.create)
             .mutation(async ({ctx, input}) =>
                 checkMutate(submitSpaceHandler({ctx, input}))),
     })
